@@ -1,0 +1,39 @@
+# Super Pow 
+
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+const int MOD = 1337;
+
+int modPow(int a, int b) {
+    int res = 1;
+    a %= MOD;
+    while (b > 0) {
+        if (b % 2 == 1) res = (res * a) % MOD;
+        a = (a * a) % MOD;
+        b /= 2;
+    }
+    return res;
+}
+
+int superPow(int a, vector<int>& b) {
+    int res = 1;
+    for (int digit : b) {
+        res = modPow(res, 10) * modPow(a, digit) % MOD;
+    }
+    return res;
+}
+
+int main() {
+    vector<int> b1 = {3};
+    vector<int> b2 = {1, 0};
+    vector<int> b3 = {4, 3, 3, 8, 5, 2};
+
+    cout << superPow(2, b1) << endl;  // Output: 8
+    cout << superPow(2, b2) << endl;  // Output: 1024
+    cout << superPow(1, b3) << endl;  // Output: 1
+
+    return 0;
+}
